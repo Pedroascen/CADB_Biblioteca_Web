@@ -12,6 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div>
+            <a href="UsuarioCtrl?accion=listar">Listar Usuarios</a>
+        </div>
     </body>
 </html>
