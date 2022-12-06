@@ -27,8 +27,8 @@
             <%
                 UsuarioSQL usrsql = new UsuarioSQL();
                 List<UsuarioBean> usrs = usrsql.obtenerUsuarios();
-               Iterator<UsuarioBean> iter = usrs.iterator();
-               UsuarioBean usr=null;
+                Iterator<UsuarioBean> iter = usrs.iterator();
+                UsuarioBean usr=null;
                
                 for (int i = 0; i < usrs.size(); i++) {
             %>

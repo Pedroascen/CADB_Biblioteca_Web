@@ -1,10 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 12-04-2022, 09:50:27 PM
-    Author     : Ascencio
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>

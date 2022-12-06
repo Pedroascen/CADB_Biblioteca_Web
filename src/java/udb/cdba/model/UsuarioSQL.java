@@ -57,18 +57,15 @@ public class UsuarioSQL extends Conexion {
             //se inicia la conexion con la base
             conn = Conexion.getConnection();
             //llamando sentencia sql
-            stmt = conn.prepareStatement("SELECT * FROM usuario;");
+            stmt = conn.prepareStatement("SELECT u.carnet,u.nombre,u.apellido,r.nombre_rol FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id;");
             //ejecutando
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int id_rol = rs.getInt(5);
-                String idRol = String.valueOf(id_rol);
                 lstusr.add(rs.getString(1));
                 lstusr.add(rs.getString(2));
                 lstusr.add(rs.getString(3));
                 lstusr.add(rs.getString(4));
-                lstusr.add(idRol);
             }
         } catch (SQLException sqle) {
            System.err.print("Error al consultar usuarios: "+sqle);
