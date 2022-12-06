@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 public class UsuarioCtrl extends HttpServlet {
 
     //variables para vistas
-    String listar="usuarios/listar.jsp";
+    String listar = "usuarios/listar.jsp";
     String add = "usuarios/add.jsp";
     String edit = "usuarios/edit.jsp";
-    
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -24,7 +23,7 @@ public class UsuarioCtrl extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UsuarioCtrl</title>");            
+            out.println("<title>Servlet UsuarioCtrl</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet UsuarioCtrl at " + request.getContextPath() + "</h1>");
@@ -36,17 +35,12 @@ public class UsuarioCtrl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String acceso="";
-        String action=request.getParameter("accion");
-        
-        if(action.equalsIgnoreCase("listar")){
-            acceso=listar;
-        }
-        
-        RequestDispatcher vista = request.getRequestDispatcher(acceso);
-        vista.forward(request, response);
-    }
+        String action = request.getParameter("accion");
 
+        if (action.equalsIgnoreCase("listar")) {
+            listar(request, response);
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -58,5 +52,16 @@ public class UsuarioCtrl extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void listar(HttpServletRequest request, HttpServletResponse response) {
+        String acceso = "";
+        acceso = listar;
+        try {
+            RequestDispatcher vista = request.getRequestDispatcher(acceso);
+            vista.forward(request, response);
+        } catch (Exception e) {
+            System.err.println("Error: " + e);
+        }
+    }
 
 }

@@ -1,5 +1,5 @@
 
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="udb.cdba.beans.UsuarioBean"%>
 <%@page import="udb.cdba.model.UsuarioSQL"%>
 <%@page import="java.util.List"%>
@@ -8,29 +8,34 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Listado de personas</title>
+        <title>Usuarios</title>
     </head>
     <body>
+        <jsp:include page="/menu.jsp"/>
         <div>
-        <h1>Personas</h1>
+        <h1>Usuarios</h1>
         <table border="1">
             <thead>
                 <tr>
                     <th>Codigo</th>
-                    <th>DNI</th>
-                    <th>NOMBRES</th>
-                    <th>ACTIONS</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <%
                 UsuarioSQL usrsql = new UsuarioSQL();
-                ArrayList<UsuarioBean> usrs = usrsql.obtenerUsuarios();
+                List<UsuarioBean> usrs = usrsql.obtenerUsuarios();
+               Iterator<UsuarioBean> iter = usrs.iterator();
+               UsuarioBean usr=null;
                
                 for (int i = 0; i < usrs.size(); i++) {
             %>
             <tbody>
                 <tr>
                     <td><%= usrs.get(i)%></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td>

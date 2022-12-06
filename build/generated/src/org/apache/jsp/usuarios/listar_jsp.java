@@ -1,10 +1,14 @@
-package org.apache.jsp;
+package org.apache.jsp.usuarios;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.util.ArrayList;
+import udb.cdba.beans.UsuarioBean;
+import udb.cdba.model.UsuarioSQL;
+import java.util.List;
 
-public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class listar_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -44,16 +48,53 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
-      out.write("        <title>Inicio</title>\n");
+      out.write("        <title>Listado de personas</title>\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
-      out.write("        ");
-      org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "/menu.jsp", out, false);
+      out.write("        <div>\n");
+      out.write("        <h1>Personas</h1>\n");
+      out.write("        <table border=\"1\">\n");
+      out.write("            <thead>\n");
+      out.write("                <tr>\n");
+      out.write("                    <th>Codigo</th>\n");
+      out.write("                    <th>DNI</th>\n");
+      out.write("                    <th>NOMBRES</th>\n");
+      out.write("                    <th>ACTIONS</th>\n");
+      out.write("                </tr>\n");
+      out.write("            </thead>\n");
+      out.write("            ");
+
+                UsuarioSQL usrsql = new UsuarioSQL();
+                ArrayList<UsuarioBean> usrs = usrsql.obtenerUsuarios();
+               
+                for (int i = 0; i < usrs.size(); i++) {
+            
       out.write("\n");
+      out.write("            <tbody>\n");
+      out.write("                <tr>\n");
+      out.write("                    <td>");
+      out.print( usrs.get(i));
+      out.write("</td>\n");
+      out.write("                    <td></td>\n");
+      out.write("                    <td></td>\n");
+      out.write("                    <td>\n");
+      out.write("                        <a>Editar</a>\n");
+      out.write("                        <a>Eliminar</a>\n");
+      out.write("                    </td>\n");
+      out.write("                </tr>\n");
+      out.write("                ");
+}
+      out.write("\n");
+      out.write("            </tbody>\n");
+      out.write("        </table>\n");
+      out.write("        </div>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

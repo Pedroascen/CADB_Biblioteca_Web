@@ -9,11 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Inicio</title>
     </head>
     <body>
-        <div>
-            <a href="UsuarioCtrl?accion=listar">Listar Usuarios</a>
-        </div>
+        <jsp:include page="/menu.jsp"/>
     </body>
 </html>

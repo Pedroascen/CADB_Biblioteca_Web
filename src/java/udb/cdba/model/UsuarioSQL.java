@@ -53,7 +53,6 @@ public class UsuarioSQL extends Conexion {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList lstusr = new ArrayList();
-        int rows = 0;
         try {
             //se inicia la conexion con la base
             conn = Conexion.getConnection();
