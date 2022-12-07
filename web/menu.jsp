@@ -26,7 +26,7 @@
                         <a class="nav-link" href="UsuarioCtrl?accion=listar">Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cerrarsesion.jsp">Cerrar Sesión)</a></li>
+                        <a class="nav-link" href="cerrarsesion.jsp">Cerrar Sesión</a></li>
                     </li>
                 </ul>
             </div>

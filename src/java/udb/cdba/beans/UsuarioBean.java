@@ -7,19 +7,26 @@ public class UsuarioBean {
     private String apellido;
     private String carnet;
     private String contrasenia;
-    private String nombre_TipoUser;
+    private String nombre_rol;
     
     //constructores
     public UsuarioBean(){
     }
     
-    public UsuarioBean(int id_rol, String nombre, String apellido,String carnet,String contrasenia,String nombre_tipo){
+    public UsuarioBean(int id_rol, String nombre, String apellido,String carnet,String contrasenia,String nombre_rol){
         this.id_rol=id_rol;
         this.nombre=nombre;
         this.apellido=apellido;
         this.carnet=carnet;
         this.contrasenia=contrasenia;
-        this.nombre_TipoUser = nombre_tipo;
+        this.nombre_rol = nombre_rol;
+    }
+
+    public UsuarioBean(String carnet, String nombre, String apellido, String nombre_rol) {
+        this.carnet=carnet;
+        this.nombre=nombre;
+        this.apellido=apellido;
+        this.nombre_rol = nombre_rol;
     }
 
     public int getId_rol() {
@@ -62,11 +69,12 @@ public class UsuarioBean {
         this.contrasenia = contrasenia;
     }
 
-    public String getNombre_TipoUser() {
-        return nombre_TipoUser;
+    public String getNombre_rol() {
+        return nombre_rol;
     }
 
-    public void setNombre_TipoUser(String nombre_TipoUser) {
-        this.nombre_TipoUser = nombre_TipoUser;
+    public void setNombre_rol(String nombre_rol) {
+        this.nombre_rol = nombre_rol;
     }
+    
 }

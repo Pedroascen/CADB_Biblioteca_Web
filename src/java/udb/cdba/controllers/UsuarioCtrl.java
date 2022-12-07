@@ -2,6 +2,7 @@ package udb.cdba.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -49,8 +50,11 @@ public class UsuarioCtrl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //capturamos la accion
         String action = request.getParameter("accion");
+        //realizamos un if para evaluar las opciones
         if (action.equals("listar")) {
+            //invocamos un metodo para listar y le pasamos los datos de la vista
             listar(request, response);
         }
     }
@@ -80,11 +84,17 @@ public class UsuarioCtrl extends HttpServlet {
 
     //metodo para listar
     private void listar(HttpServletRequest request, HttpServletResponse response) {
+        //cremos la lista de usuarios
+        List<UsuarioBean> usuarios = new UsuarioSQL().listar();
+        //System.out.println("Usuarios " + usuarios);
         String acceso = "";
         acceso = listar;
+        //capturamos excepciones en caso de error
         try {
-            RequestDispatcher vista = request.getRequestDispatcher(acceso);
-            vista.forward(request, response);
+            request.setAttribute("usuarios", usuarios);
+            request.getRequestDispatcher(listar).forward(request, response);
+            //RequestDispatcher vista = request.getRequestDispatcher(acceso);
+            //vista.forward(request, response);
         } catch (Exception e) {
             System.err.println("Error: " + e);
         }
