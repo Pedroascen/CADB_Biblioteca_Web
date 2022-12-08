@@ -9,12 +9,14 @@
     <body>
         <jsp:include page="/menu.jsp"/>
         <div class="container">
-            <form role="form" action="/CADB_Biblioteca_Web/usuario?accion=insertar" method="POST">
-                <h4>Agregar nuevo Usuario:</h4>
+            <form role="form" action="/CADB_Biblioteca_Web/usuario?accion=modificar" method="POST">
+                <h4>Editar Usuario:</h4>
                 <div class="col-md-10">
+                <input type="hidden" class="form-control" name="carnet" id="carnet" value="${usuario.carnet}">
                     <div class="form-group">
                         <label for="id_rol">Rol</label>
                         <select class="form-control" id="id_rol" name="id_rol">
+                            <option value="${usuario.id_rol}" >${usuario.nombre_rol}</option>
                             <option value="1">Administrador</option>
                             <option value="2">Profesor</option>
                             <option value="3">Alumno</option>
@@ -24,7 +26,7 @@
                         <label for="nombre">Ingrese su nombre:</label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="nombre" id="nombre" 
-                                   placeholder="Nombre">
+                                   placeholder="Nombre" value="${usuario.nombre}">
                             <span class="input-group-addon"></span>
                         </div>
                     </div>
@@ -32,7 +34,7 @@
                         <label for="apellido">Ingrese Apellido:</label>
                         <div class="input-group">
                             <input type="apellido" class="form-control" id="apellido" name="apellido" 
-                                   placeholder="Apellido">
+                                   placeholder="Apellido" value="${usuario.apellido}">
                             <span class="input-group-addon"></span>
                         </div>
                     </div>
@@ -40,14 +42,15 @@
                         <label for="contrasenia">Ingrese Contraseña:</label>
                         <div class="input-group">
                             <input type="contrasenia" class="form-control" id="contrasenia" name="contrasenia" 
-                                   placeholder="Contrasenia">
+                                   placeholder="Nueva Contraseña">
                             <span class="input-group-addon"></span>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <input type="submit" class="btn btn-info" value="Registrar">
                     <a class="btn btn-danger" href="/CADB_Biblioteca_Web/usuario?accion=listar">Cancelar</a>
                 </div>
             </form>
         </div>
     </body>
 </html>
+

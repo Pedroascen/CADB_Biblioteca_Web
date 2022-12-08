@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Ascencio
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
+@WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
 
     /**
@@ -40,7 +40,7 @@ public class LoginController extends HttpServlet {
             out.println("<title>Servlet LoginController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Pedro" + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

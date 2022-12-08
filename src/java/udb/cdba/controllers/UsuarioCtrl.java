@@ -14,7 +14,7 @@ import udb.cdba.model.Hash;
 import udb.cdba.model.UsuarioSQL;
 
 public class UsuarioCtrl extends HttpServlet {
-
+    //Este Servelet no se esta utilizando
     /**
      *
      * @author Ascencio

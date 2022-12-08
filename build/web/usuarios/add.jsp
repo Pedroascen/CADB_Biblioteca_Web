@@ -8,9 +8,9 @@
     </head>
     <body>
         <jsp:include page="/menu.jsp"/>
-        <h1>Agregar nuevo Usuario:</h1>
-        <div class="row">
+        <div class="container">
             <form role="form" action="/CADB_Biblioteca_Web/usuario?accion=insertar" method="POST">
+                <h4>Agregar nuevo Usuario:</h4>
                 <div class="col-md-10">
                     <div class="form-group">
                         <label for="id_rol">Rol</label>
@@ -23,7 +23,7 @@
                     <div class="form-group">
                         <label for="nombre">Ingrese su nombre:</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="nombre" id="carnet" 
+                            <input type="text" class="form-control" name="nombre" id="nombre" 
                                    placeholder="Nombre">
                             <span class="input-group-addon"></span>
                         </div>
@@ -44,7 +44,7 @@
                             <span class="input-group-addon"></span>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-info" value="Registrar">
+                    <button type="submit" class="btn btn-primary">Registrar</button>
                     <a class="btn btn-danger" href="/CADB_Biblioteca_Web/usuario?accion=listar">Cancelar</a>
                 </div>
             </form>

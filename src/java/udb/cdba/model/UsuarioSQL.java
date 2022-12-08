@@ -10,6 +10,8 @@ import udb.cdba.beans.UsuarioBean;
 
 public class UsuarioSQL extends Conexion {
 
+    private final String SQL_UPDATE = "UPDATE usuario SET nombre=?, apellido=?, contrasena=?, id_rol=? WHERE carnet=?";
+    
     //metodo para validar usuario en login
     public boolean login(UsuarioBean usrlog) {
         //inicializacion de las variables
@@ -46,7 +48,7 @@ public class UsuarioSQL extends Conexion {
             Conexion.close(conn);
         }
     }
-    
+
     //metodo para obtener usuario por carnet
     public List<UsuarioBean> listar() {
         //inicializacion de las variables
@@ -63,17 +65,17 @@ public class UsuarioSQL extends Conexion {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String carnet= rs.getString(1);
-                String nombre=rs.getString(2);
-                String apellido=rs.getString(3);
-                String nombre_rol=rs.getString(4); 
-                System.out.println(carnet+" "+nombre+" "+apellido+" "+nombre_rol);
-            //aniadimos el registro a un listado de tipo Usuario   
-            usuarios.add(new UsuarioBean(carnet, nombre, apellido, nombre_rol));
+                String carnet = rs.getString(1);
+                String nombre = rs.getString(2);
+                String apellido = rs.getString(3);
+                String nombre_rol = rs.getString(4);
+                System.out.println(carnet + " " + nombre + " " + apellido + " " + nombre_rol);
+                //aniadimos el registro a un listado de tipo Usuario   
+                usuarios.add(new UsuarioBean(carnet, nombre, apellido, nombre_rol));
             }
-            
+
         } catch (SQLException sqle) {
-           System.err.print("Error al consultar usuarios: "+sqle);
+            System.err.print("Error al consultar usuarios: " + sqle);
         } finally {
             Conexion.close(conn);
             Conexion.close(stmt);
@@ -81,7 +83,7 @@ public class UsuarioSQL extends Conexion {
         }
         return usuarios;
     }
-    
+
     //metodo para registrar usuarios
     public boolean registrar(String nombre, String apellido, String contrasenia, int id_rol) {
         //inicializacion de las variables
@@ -99,7 +101,43 @@ public class UsuarioSQL extends Conexion {
             System.out.println("No Registros afectados: " + rows);
             return true;
         } catch (SQLException sqle) {
-            System.err.print("Error al registrar usuario: "+sqle);
+            System.err.print("Error al registrar usuario: " + sqle);
+            return false;
+            //cerramos la conexion
+        } finally {
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+    }
+
+    //metodo para actualizar usuarios
+    public boolean actualizar(String carnet, String nombre, String apellido, String contrasena, int id_rol) {
+        //inicializacion de las variables
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;//no se usa
+        int rows = 0;
+
+        try {
+            //se crea la conexion con la base
+            conn = Conexion.getConnection();
+            //se declara la sentencia sql
+            stmt = conn.prepareStatement(SQL_UPDATE);
+            int i = 1;//contador para la columnas para guardar registro
+            stmt.setString(i++, nombre);
+            stmt.setString(i++, apellido);
+            stmt.setString(i++, contrasena);
+            stmt.setInt(i++, id_rol);
+            stmt.setString(i, carnet);
+            //ejecutando el query
+            rows = stmt.executeUpdate();
+            //mensaje de salida
+            System.out.println("No Registros afectados: " + rows);
+            return true;
+
+        } catch (SQLException sqle) {
+            //JOptionPane.showMessageDialog(null, "" + carnet + ":" + nombre + ":" + apellido + ":" + contrasena + ":" + id_rol);
+            System.err.println("Error al actualizar usuarios: " + sqle);
             return false;
             //cerramos la conexion
         } finally {
@@ -109,13 +147,11 @@ public class UsuarioSQL extends Conexion {
     }
 
     //metodo para obtener usuario por carnet
-    public ArrayList obtenerUsuarioPorCarnet(String Icarnet) {
+    public UsuarioBean obtenerUsuarioPorCarnet(String Icarnet) {
         //inicializacion de las variables
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ArrayList lstusr = new ArrayList();
-        int rows = 0;
         try {
             //se inicia la conexion con la base
             conn = Conexion.getConnection();
@@ -124,29 +160,61 @@ public class UsuarioSQL extends Conexion {
             stmt.setString(1, Icarnet);
             //ejecutando
             rs = stmt.executeQuery();
-
-            while (rs.next()) {
+            if (rs.next()) {
                 int id_rol = rs.getInt(5);
-                String idRol = String.valueOf(id_rol);
 
-                lstusr.add(rs.getString(1));
-                lstusr.add(rs.getString(2));
-                lstusr.add(rs.getString(3));
-                lstusr.add(rs.getString(4));
-                lstusr.add(idRol);
+                UsuarioBean usuario = new UsuarioBean();
+                usuario.setNombre(rs.getString(1));
+                usuario.setApellido(rs.getString(2));
+                usuario.setCarnet(rs.getString(3));
+                usuario.setId_rol(id_rol);
+                usuario.setNombre_rol(rs.getString(5));
+                System.out.println(usuario.getCarnet() + " " + usuario.getNombre()+ " " + usuario.getApellido());
+                return usuario;
             }
+            return null;
         } catch (SQLException sqle) {
-           System.err.print("Error al consultar usuarios: "+sqle);
+            System.err.print("Error al consultar usuarios: " + sqle);
         } finally {
             Conexion.close(conn);
             Conexion.close(stmt);
             Conexion.close(rs);
         }
-        return lstusr;
+        return null;
     }
-    
+
+    //metodo para eliminar usuario por carnet
+  public boolean eliminar(String Icarnet){
+       //inicializacion de las variables
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int rows = 0;
+        try {
+            //se inicia la conexion con la base
+            conn = Conexion.getConnection();
+            //llamando sentencia sql
+            stmt = conn.prepareStatement("DELETE FROM `usuario` WHERE carnet=?");
+            stmt.setString(1, Icarnet);
+            //ejecutando
+            rows = stmt.executeUpdate();
+            return true;
+        } catch (SQLException sqle) {
+            System.err.print("Error al consultar usuarios: " + sqle);
+        } finally {
+            Conexion.close(conn);
+            Conexion.close(stmt);
+            Conexion.close(rs);
+        }
+    return false;
+    }
+
     public static void main(String[] args) {
         UsuarioSQL usuario = new UsuarioSQL();
-        usuario.listar();
+        if(usuario.eliminar("220010")){
+            System.out.println("Se pudo eliminar el usuario");
+        }else{
+            System.out.println("No se pudo eliminar el usuario, probablemente posee un prestamos");
+        }
     }
 }

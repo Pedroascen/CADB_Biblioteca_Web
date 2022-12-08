@@ -1,9 +1,3 @@
-<%-- 
-    Document   : menu
-    Created on : 12-04-2022, 09:47:49 PM
-    Author     : Ascencio
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,7 +16,7 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Usuarios
                         </a>

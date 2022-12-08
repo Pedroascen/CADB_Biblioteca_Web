@@ -12,7 +12,7 @@
     <body>
         <jsp:include page="/menu.jsp"/>
         <div class="container">
-            <h1>Usuarios: </h1>
+            <h4>Listado de Usuarios: </h4>
                 <table class="table table-dark text-center">
                     <thead>
                         <tr>
@@ -31,8 +31,8 @@
                                 <td>${usuario.apellido}</td>
                                 <td>${usuario.nombre_rol}</td>
                                 <td>
-                                    <a class="btn btn-info" href="#" role="button" >Editar</a>
-                                    <a class="btn btn-danger" href="#" role="button" >Eliminar</a>
+                                    <a class="btn btn-info" href="/CADB_Biblioteca_Web/usuario?accion=obtener&carnet=${usuario.carnet}" role="button" >Editar</a>
+                                    <a class="btn btn-danger" href="/CADB_Biblioteca_Web/usuario?accion=eliminar&carnet=${usuario.carnet}" role="button" >Eliminar</a>
                                 </td>
                             </tr>
                         </c:forEach>

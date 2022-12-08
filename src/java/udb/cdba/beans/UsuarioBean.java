@@ -21,6 +21,8 @@ public class UsuarioBean {
         this.contrasenia=contrasenia;
         this.nombre_rol = nombre_rol;
     }
+    
+    
 
     public UsuarioBean(String carnet, String nombre, String apellido, String nombre_rol) {
         this.carnet=carnet;
