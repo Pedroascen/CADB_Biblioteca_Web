@@ -81,6 +81,32 @@ public class UsuarioSQL extends Conexion {
         }
         return usuarios;
     }
+    
+    //metodo para registrar usuarios
+    public boolean registrar(String nombre, String apellido, String contrasenia, int id_rol) {
+        //inicializacion de las variables
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int rows = 0;
+
+        try {
+            //se crea la conexion con la base +"','"+descripcion+"');"
+            conn = Conexion.getConnection();
+            //se declara la sentencia sql
+            stmt = conn.prepareStatement("call new_user('" + nombre + "','" + apellido + "','" + contrasenia + "','" + id_rol + "');");
+            stmt.executeQuery();
+            System.out.println("No Registros afectados: " + rows);
+            return true;
+        } catch (SQLException sqle) {
+            System.err.print("Error al registrar usuario: "+sqle);
+            return false;
+            //cerramos la conexion
+        } finally {
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+    }
 
     //metodo para obtener usuario por carnet
     public ArrayList obtenerUsuarioPorCarnet(String Icarnet) {

@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <title>Login</title>
     </head>
-      <jsp:useBean id="usuario" scope="request" class="udb.cdba.beans.UsuarioBean" />
+     <jsp:useBean id="usuario" scope="request" class="udb.cdba.beans.UsuarioBean" />
      <jsp:setProperty name="usuario" property="carnet" />
      <jsp:setProperty name="usuario" property="contrasenia" />
      <c:if test="${not empty param.carnet && not empty param.contrasenia}">

@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,89 +15,122 @@ import udb.cdba.model.UsuarioSQL;
 
 public class UsuarioCtrl extends HttpServlet {
 
-    //variables para vistas
-    String inicio = "/index.jsp";
-    String listar = "/usuarios/listar.jsp";
-    String add = "/usuarios/add.jsp";
-    String edit = "/usuarios/edit.jsp";
+    /**
+     *
+     * @author Ascencio
+     */
+    @WebServlet(name = "UsuarioCtrl", urlPatterns = {"/UsuarioCtrl"})
+    public class NewServlet extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            //capturamos la accion
-            String action = request.getParameter("accion");
+        //variables para vistas
+        String inicio = "/index.jsp";
+        String listar = "usuarios/listar.jsp";
+        String agregar = "usuarios/add.jsp";
+        String edit = "usuarios/edit.jsp";
 
-            //si se desea loguear
-            if (action.equals("logueo")) {
-                //capturamos los datos del formulario
-                UsuarioBean usr = (UsuarioBean) request.getAttribute("usuario");
-                //encriptamos la contrasenia
-                String contraCif = Hash.sha1(usr.getContrasenia());
-                //seteamos la contrasenia
-                usr.setContrasenia(contraCif);
-                //instanciamos el objeto de acceso a la base
-                UsuarioSQL usrsql = new UsuarioSQL();
-                //validamos los datos
-                if (usrsql.login(usr)) {
-                    logueo(request, response);
+        protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+                throws ServletException, IOException {
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                //capturamos la accion
+                String action = request.getParameter("accion");
+
+                //si se desea loguear
+                if (action.equals("logueo")) {
+                    //capturamos los datos del formulario
+                    UsuarioBean usr = (UsuarioBean) request.getAttribute("usuario");
+                    //encriptamos la contrasenia
+                    String contraCif = Hash.sha1(usr.getContrasenia());
+                    //seteamos la contrasenia
+                    usr.setContrasenia(contraCif);
+                    //instanciamos el objeto de acceso a la base
+                    UsuarioSQL usrsql = new UsuarioSQL();
+                    //validamos los datos
+                    if (usrsql.login(usr)) {
+                        logueo(request, response);
+                    }
+                    //vista por defecto
+                    response.sendRedirect("login.jsp");
                 }
-                //vista por defecto
-                response.sendRedirect("login.jsp");
             }
         }
-    }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //capturamos la accion
-        String action = request.getParameter("accion");
-        //realizamos un if para evaluar las opciones
-        if (action.equals("listar")) {
-            //invocamos un metodo para listar y le pasamos los datos de la vista
-            listar(request, response);
+        @Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+                throws ServletException, IOException {
+            //capturamos la accion
+            String action = request.getParameter("accion");
+            String acceso = "";
+            //realizamos un if para evaluar las opciones
+            if (action.equals("listar")) {
+                //invocamos un metodo para listar y le pasamos los datos de la vista
+                listar(request, response);
+            }
+            if (action.equals("agregar")) {
+                RequestDispatcher vista = request.getRequestDispatcher(agregar);
+                vista.forward(request, response);
+            }
+
         }
-    }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        @Override
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+                throws ServletException, IOException {
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+            //capturamos la accion
+            String action = request.getParameter("accion");
+            String acceso = "";
 
-    //metodo para el logue
-    private void logueo(HttpServletRequest request, HttpServletResponse response) {
-        String acceso = "";
-        acceso = inicio;
-        try {
-            RequestDispatcher vista = request.getRequestDispatcher(acceso);
-            vista.forward(request, response);
-        } catch (Exception e) {
-            System.err.println("Error: " + e);
+            if (action.equals("guardar")) {
+                guardar(request, response);
+            }
         }
-    }
 
-    //metodo para listar
-    private void listar(HttpServletRequest request, HttpServletResponse response) {
-        //cremos la lista de usuarios
-        List<UsuarioBean> usuarios = new UsuarioSQL().listar();
-        //System.out.println("Usuarios " + usuarios);
-        String acceso = "";
-        acceso = listar;
-        //capturamos excepciones en caso de error
-        try {
-            request.setAttribute("usuarios", usuarios);
-            request.getRequestDispatcher(listar).forward(request, response);
-            //RequestDispatcher vista = request.getRequestDispatcher(acceso);
-            //vista.forward(request, response);
-        } catch (Exception e) {
-            System.err.println("Error: " + e);
+        @Override
+        public String getServletInfo() {
+            return "Short description";
+        }// </editor-fold>
+
+        //metodo para el logue
+        private void logueo(HttpServletRequest request, HttpServletResponse response) {
+            String acceso = "";
+            acceso = inicio;
+            try {
+                RequestDispatcher vista = request.getRequestDispatcher(acceso);
+                vista.forward(request, response);
+            } catch (Exception e) {
+                System.err.println("Error: " + e);
+            }
+        }
+
+        //metodo para listar
+        private void listar(HttpServletRequest request, HttpServletResponse response) {
+            //cremos la lista de usuarios
+            List<UsuarioBean> usuarios = new UsuarioSQL().listar();
+            //System.out.println("Usuarios " + usuarios);
+            String acceso = "";
+            acceso = listar;
+            //capturamos excepciones en caso de error
+            try {
+                request.setAttribute("usuarios", usuarios);
+                request.getRequestDispatcher(listar).forward(request, response);
+                //RequestDispatcher vista = request.getRequestDispatcher(acceso);
+                //vista.forward(request, response);
+            } catch (Exception e) {
+                System.err.println("Error: " + e);
+            }
+        }
+
+        private void guardar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                //realizamos un if para evaluar las opciones
+                //capturamos los datos del formulario
+                UsuarioBean usr = (UsuarioBean) request.getAttribute("usuario");
+                //invocamos un metodo para listar y le pasamos los datos de la vista
+                out.println("<h1>Servlet NewServlet at " + usr.getNombre() + "</h1>");
+            }
+
         }
     }
 }
