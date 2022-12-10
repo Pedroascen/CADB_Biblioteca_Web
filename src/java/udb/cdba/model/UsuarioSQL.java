@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import udb.cdba.beans.DataLoginBean;
 import udb.cdba.beans.UsuarioBean;
 
 public class UsuarioSQL extends Conexion {
@@ -13,7 +14,7 @@ public class UsuarioSQL extends Conexion {
     private final String SQL_UPDATE = "UPDATE usuario SET nombre=?, apellido=?, contrasena=?, id_rol=? WHERE carnet=?";
     
     //metodo para validar usuario en login
-    public boolean login(UsuarioBean usrlog) {
+    public boolean login(DataLoginBean usrlog) {
         //inicializacion de las variables
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -34,6 +35,7 @@ public class UsuarioSQL extends Conexion {
                     usrlog.setCarnet(rs.getString(1));
                     usrlog.setId_rol(rs.getInt(3));
                     usrlog.setNombre_rol(rs.getString(4));
+                    System.out.println(usrlog.getCarnet() + " " + usrlog.getNombre_rol() + " " + usrlog.getId_rol());
                     return true;
                 }
             }
@@ -69,7 +71,6 @@ public class UsuarioSQL extends Conexion {
                 String nombre = rs.getString(2);
                 String apellido = rs.getString(3);
                 String nombre_rol = rs.getString(4);
-                System.out.println(carnet + " " + nombre + " " + apellido + " " + nombre_rol);
                 //aniadimos el registro a un listado de tipo Usuario   
                 usuarios.add(new UsuarioBean(carnet, nombre, apellido, nombre_rol));
             }

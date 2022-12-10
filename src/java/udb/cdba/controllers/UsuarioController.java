@@ -15,17 +15,27 @@ import udb.cdba.model.UsuarioSQL;
 @WebServlet(name = "UsuarioController", urlPatterns = {"/usuario"})
 public class UsuarioController extends HttpServlet {
 
+    //variable para almacenar datos de usuario logueado
+    String Did_rol, Dcarnet;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
+            //capturamos los datos
+            String Lrol_id = request.getParameter("ir");
+            if (Lrol_id == null) {
+                doGet(request, response);
+            }
+            
+            String accion = request.getParameter("accion");
+            //acciones del usuario
             if (request.getParameter("accion") == null) {
                 //getServletInfo(request,response);
                 listar(request, response);
             }
 
-            String accion = request.getParameter("accion");
             switch (accion) {
                 case "listar":
                     listar(request, response);
@@ -52,7 +62,18 @@ public class UsuarioController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //capturamos los datos
+        Did_rol = request.getParameter("ir");
+        //validamos al tipo usuario
+            if (Did_rol == "" || Did_rol.equals("0")) {
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
+                //si el usuario es admin
+            } else if (Did_rol.equals("1")) {
+                processRequest(request, response);
+            } else {
+                //de no ser admin
+                request.getRequestDispatcher("/index_usuarios.jsp").forward(request, response);
+            }
     }
 
     @Override
@@ -68,11 +89,7 @@ public class UsuarioController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             //UsuarioBean usr = (UsuarioBean) request.getAttribute("usuario");
             //UsuarioBean usr = (UsuarioBean) request.getAttribute("usuario");
-            String carnet = request.getParameter("carnet");
-            String nombre = request.getParameter("nombre");
-            String apellido = request.getParameter("apellido");
-            String contrasenia = request.getParameter("contrasenia");
-            String id_rol = request.getParameter("id_rol");
+            Did_rol = request.getParameter("ir");
 
             //invocamos un metodo para listar y le pasamos los datos de la vista
             out.println("<!DOCTYPE html>");
@@ -81,7 +98,7 @@ public class UsuarioController extends HttpServlet {
             out.println("<title>Servlet LoginController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + carnet + " " + id_rol + "</h1>");
+            out.println("<h1>Servlet UsuarioController at " + Did_rol + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -187,7 +204,7 @@ public class UsuarioController extends HttpServlet {
             if (usrsql.eliminar(Icarnet)) {
                 listar(request, response);
             } else {
-                request.getRequestDispatcher("/error.jsp").forward(request, response);
+                request.getRequestDispatcher("/components/error.jsp").forward(request, response);
             }
         } catch (Exception e) {
             System.err.println("Error: " + e);

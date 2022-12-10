@@ -7,9 +7,11 @@
         <title>Agregar Usuario</title>
     </head>
     <body>
-        <jsp:include page="/menu.jsp"/>
+        <jsp:include page="/components/menu.jsp"/>
+        <input type="hidden" id="Lrol_id" name="Lrol_id" value="<c:out value="${usuarioLogin.id_rol}"/>">
+        <input type="hidden" id="Lcarnet" name="Lcarnet" value="<c:out value="${usuarioLogin.carnet}"/>">
         <div class="container">
-            <form role="form" action="/CADB_Biblioteca_Web/usuario?accion=insertar" method="POST">
+            <form role="form" action="/CADB_Biblioteca_Web/usuario?accion=insertar&ir=${usuarioLogin.id_rol}" method="POST">
                 <h4>Agregar nuevo Usuario:</h4>
                 <div class="col-md-10">
                     <div class="form-group">
@@ -45,7 +47,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Registrar</button>
-                    <a class="btn btn-danger" href="/CADB_Biblioteca_Web/usuario?accion=listar">Cancelar</a>
+                    <a class="btn btn-danger" href="/CADB_Biblioteca_Web/usuario?accion=listar&ir=${usuarioLogin.id_rol}">Cancelar</a>
                 </div>
             </form>
         </div>

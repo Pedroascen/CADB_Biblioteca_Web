@@ -7,12 +7,14 @@
         <title>Agregar Usuario</title>
     </head>
     <body>
-        <jsp:include page="/menu.jsp"/>
+        <jsp:include page="/components/menu.jsp"/>
+        <input type="hidden" id="Lrol_id" name="Lrol_id" value="<c:out value="${usuarioLogin.id_rol}"/>">
+        <input type="hidden" id="Lcarnet" name="Lcarnet" value="<c:out value="${usuarioLogin.carnet}"/>">
         <div class="container">
-            <form role="form" action="/CADB_Biblioteca_Web/usuario?accion=modificar" method="POST">
+            <form role="form" action="/CADB_Biblioteca_Web/usuario?accion=modificar&ir=${usuarioLogin.id_rol}" method="POST">
                 <h4>Editar Usuario:</h4>
                 <div class="col-md-10">
-                <input type="hidden" class="form-control" name="carnet" id="carnet" value="${usuario.carnet}">
+                    <input type="hidden" class="form-control" name="carnet" id="carnet" value="${usuario.carnet}">
                     <div class="form-group">
                         <label for="id_rol">Rol</label>
                         <select class="form-control" id="id_rol" name="id_rol">
@@ -42,12 +44,12 @@
                         <label for="contrasenia">Ingrese Contraseña:</label>
                         <div class="input-group">
                             <input type="contrasenia" class="form-control" id="contrasenia" name="contrasenia" 
-                                   placeholder="Nueva Contraseña">
+                                   placeholder="Nueva Contraseña">  
                             <span class="input-group-addon"></span>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-info" value="Registrar">
-                    <a class="btn btn-danger" href="/CADB_Biblioteca_Web/usuario?accion=listar">Cancelar</a>
+                    <input type="submit" class="btn btn-info" value="Modificar">
+                    <a class="btn btn-danger" href="/CADB_Biblioteca_Web/usuario?accion=listar&ir=${usuarioLogin.id_rol}">Cancelar</a>
                 </div>
             </form>
         </div>
