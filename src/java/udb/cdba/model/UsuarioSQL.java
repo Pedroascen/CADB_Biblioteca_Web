@@ -212,10 +212,7 @@ public class UsuarioSQL extends Conexion {
 
     public static void main(String[] args) {
         UsuarioSQL usuario = new UsuarioSQL();
-        if(usuario.eliminar("220010")){
-            System.out.println("Se pudo eliminar el usuario");
-        }else{
-            System.out.println("No se pudo eliminar el usuario, probablemente posee un prestamos");
-        }
+        usuario.obtenerUsuarioPorCarnet("AA220012");
+        //System.out.println("Nombre: "+usuario);
     }
 }

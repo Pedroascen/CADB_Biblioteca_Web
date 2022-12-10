@@ -8,32 +8,33 @@
     </head>
     <body>
         <div class="container">
-            <div class="row">
-                <h3>Iniciar Sesion</h3>
-            </div>
-            <div class="row">
-                <form role="form" action="/CADB_Biblioteca_Web/login?accion=logueo" method="POST">
-                    <div class="col-md-10">
-                        <div class="form-group">
-                            <label for="carnet">Ingrese su carnet:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="carnet" id="carnet" 
-                                       placeholder="Carnet" required>
-                                <span class="input-group-addon"></span>
-                            </div>
+            <form role="form" action="/CADB_Biblioteca_Web/login?accion=logueo" method="POST" class="col-md-6 m-5">
+                <div class="block text-center">
+                    <h3>Iniciar Sesion</h3>
+                </div>
+                <div class="col-md-auto">
+                    <div class="form-group">
+                        <label for="carnet">Ingrese su carnet:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="carnet" id="carnet" 
+                                   placeholder="Carnet" required>
+                            <span class="input-group-addon"></span>
                         </div>
-                        <div class="form-group">
-                            <label for="contrasenia">Ingrese contraseña:</label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="contrasenia" name="contrasenia" 
-                                       placeholder="Contraseña" required>
-                                <span class="input-group-addon"></span>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
                     </div>
-                </form>
-            </div>
+                    <div class="form-group">
+                        <label for="contrasenia">Ingrese contraseña:</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="contrasenia" name="contrasenia" 
+                                   placeholder="Contraseña" required>
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block m-1">Iniciar Sesion</button>
+                    <a type="button" class="btn btn-secondary btn-block m-1" href="/CADB_Biblioteca_Web/consultar">Ver Materiales</a>
+
+                </div>
+            </form>
         </div>
+
     </body>
 </html>
