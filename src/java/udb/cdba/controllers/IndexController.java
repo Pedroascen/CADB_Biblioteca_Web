@@ -7,11 +7,14 @@ package udb.cdba.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import udb.cdba.beans.MaterialBean;
+import udb.cdba.model.EjemplarSQL;
 
 /**
  *
@@ -31,6 +34,9 @@ public class IndexController extends HttpServlet {
             if (Lid_rol == null) {
                 doGet(request, response);
             }
+            
+            listar(request, response);
+
         }
     }
 
@@ -38,10 +44,11 @@ public class IndexController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Lid_rol = request.getParameter("ir");
-        if (Lid_rol == ""||Lid_rol.equals("0")) {
+        if (Lid_rol == "" || Lid_rol.equals("0")) {
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         } else if (Lid_rol.equals("1")) {
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            listar(request, response);
+            //request.getRequestDispatcher("/index.jsp").forward(request, response);
             //getServletInfo(request, response);
         } else if (Lid_rol.equals("2") || Lid_rol.equals("3")) {
             request.getRequestDispatcher("/index_usuarios.jsp").forward(request, response);
@@ -70,6 +77,16 @@ public class IndexController extends HttpServlet {
             out.println("<h1>Servlet LoginController at " + Lid_rol + "</h1>");
             out.println("</body>");
             out.println("</html>");
+        }
+    }
+
+    private void listar(HttpServletRequest request, HttpServletResponse response) {
+        List<MaterialBean> mtls = new EjemplarSQL().listar();
+        try {
+            request.setAttribute("materiales", mtls);
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        } catch (Exception e) {
+            System.err.println("Error: " + e);
         }
     }
 }

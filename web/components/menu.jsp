@@ -11,8 +11,21 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/CADB_Biblioteca_Web/index?&ir=${usuarioLogin.id_rol}">Home <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Agregar ejemplares
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="libro?accion=nuevo&ir=${usuarioLogin.id_rol}">Nuevo Libro</a>
+                    <a class="dropdown-item" href="revista?accion=nuevo">Nueva Revista</a>
+                    <a class="dropdown-item" href="tesis?accion=nuevo">Nueva Tesis</a>
+                    <a class="dropdown-item" href="obra?accion=nuevo">Nueva Obra</a>
+                    <a class="dropdown-item" href="cd?accion=nuevo">Nuevo CD</a>
+
+            </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Materiales <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/CADB_Biblioteca_Web/prestamo">Prestamos</a>
             </li>
             <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -21,15 +34,6 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="usuario?accion=nuevo&ir=${usuarioLogin.id_rol}">Nuevo Usuario</a>
                     <a class="dropdown-item" href="usuario?accion=listar&ir=${usuarioLogin.id_rol}">Ver lista de usuarios</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Autores
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="usuario?accion=nuevo&ir=${usuarioLogin.id_rol}">Nuevo Autor</a>
-                    <a class="dropdown-item" href="usuario?accion=listar&ir=${usuarioLogin.id_rol}">Ver lista de autores</a>
                 </div>
             </li>
             <li class="nav-item active">

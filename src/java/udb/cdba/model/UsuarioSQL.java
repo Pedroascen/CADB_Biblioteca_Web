@@ -212,7 +212,7 @@ public class UsuarioSQL extends Conexion {
 
     public static void main(String[] args) {
         UsuarioSQL usuario = new UsuarioSQL();
-        usuario.obtenerUsuarioPorCarnet("AA220012");
+        usuario.obtenerUsuarioPorCarnet("AA220006");
         //System.out.println("Nombre: "+usuario);
     }
 }

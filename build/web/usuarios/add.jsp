@@ -26,7 +26,7 @@
                         <label for="nombre">Ingrese su nombre:</label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="nombre" id="nombre" 
-                                   placeholder="Nombre">
+                                   placeholder="Nombre" required>
                             <span class="input-group-addon"></span>
                         </div>
                     </div>
@@ -34,15 +34,15 @@
                         <label for="apellido">Ingrese Apellido:</label>
                         <div class="input-group">
                             <input type="apellido" class="form-control" id="apellido" name="apellido" 
-                                   placeholder="Apellido">
+                                   placeholder="Apellido" required>
                             <span class="input-group-addon"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="contrasenia">Ingrese Contraseña:</label>
                         <div class="input-group">
-                            <input type="contrasenia" class="form-control" id="contrasenia" name="contrasenia" 
-                                   placeholder="Contrasenia">
+                            <input type="password" class="form-control" id="contrasenia" name="contrasenia" 
+                                   placeholder="Contrasenia" required>
                             <span class="input-group-addon"></span>
                         </div>
                     </div>

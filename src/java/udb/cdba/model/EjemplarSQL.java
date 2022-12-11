@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import udb.cdba.beans.EjemplarBean;
+import udb.cdba.beans.MaterialBean;
 
 public class EjemplarSQL {
 
@@ -52,7 +53,7 @@ public class EjemplarSQL {
             Conexion.close(rs);
             Conexion.close(conn);
         }
-        
+
         return resultado;
     }
 
@@ -96,9 +97,47 @@ public class EjemplarSQL {
         return ejemplares;
     }
 
+    //metodo para obtener materiales
+    public List<MaterialBean> listar() {
+        //inicializacion de las variables
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        //Bean que almacena los datos del result
+        List<MaterialBean> mtls = new ArrayList<MaterialBean>();
+        try {
+            //se inicia la conexion con la base
+            conn = Conexion.getConnection();
+            //llamando sentencia sql
+            stmt = conn.prepareStatement("SELECT codigoMaterial,Titulo,cantidadDisponibles,ubicacionFisica FROM biblioteca.material;");
+            //ejecutando
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String codMaterial = rs.getString(1);
+                String titulo = rs.getString(2);
+                String cantDisponible = rs.getString(3);
+                String ubicacionFisica = rs.getString(4);
+                //aniadimos el registro a un listado de tipo Usuario   
+                mtls.add(new MaterialBean(codMaterial, titulo, cantDisponible, ubicacionFisica));
+            }
+
+        } catch (SQLException sqle) {
+            System.err.print("Error al consultar usuarios: " + sqle);
+        } finally {
+            Conexion.close(conn);
+            Conexion.close(stmt);
+            Conexion.close(rs);
+        }
+        for (int i = 0; i < mtls.size(); i++) {
+            System.out.println(mtls.get(i).getCodMaterial() + " " + mtls.get(i).getCantDisponible());
+        }
+        return mtls;
+    }
+
     public static void main(String[] args) {
         EjemplarSQL ejemplar = new EjemplarSQL();
-        ejemplar.ConsultarEjemplares("","","Todos","Todos","");
+        ejemplar.listar();
         //System.out.println("Nombre: "+usuario);
     }
 }

@@ -23,7 +23,7 @@ public class EjemplarController extends HttpServlet {
             throws ServletException, IOException {
 
         if (request.getParameter("accion") == null) {
-            //listar(request, response);
+            listar(request, response);
             //request.getRequestDispatcher("/ejemplares/list.jsp").forward(request, response);
         }
         listar(request, response);
@@ -75,9 +75,7 @@ public class EjemplarController extends HttpServlet {
             idioma = "Todos";
             //System.out.println(material + " " + idioma);
             List<EjemplarBean> ejemplares = new EjemplarSQL().ConsultarEjemplares(titulo, autor, material, idioma, orderBy);
-            /*for (int i = 0; i < ejemplares.size(); i++) {
-                System.out.println(ejemplares.get(i).getCodigoMaterial() + " " + ejemplares.get(i).getAutores());
-            }*/
+           
             try {
                 request.setAttribute("ejemplares", ejemplares);
                 request.getRequestDispatcher("/ejemplares/listar.jsp").forward(request, response);
