@@ -102,7 +102,6 @@ public class LoginController extends HttpServlet {
             if (usrsql.login(usrdata)) {
                 //getServletInfo(request, response);
                 if (usrdata.getId_rol() == 1) {
-                    
                     request.getSession().setAttribute("usuarioLogin", usrdata);
                     request.getRequestDispatcher("/components/menu.jsp").forward(request, response);
                     inicio(request, response);

@@ -14,8 +14,8 @@
         <input type="hidden" id="Lrol_id" name="Lrol_id" value="<c:out value="${usuarioLogin.id_rol}"/>">
         <input type="hidden" id="Lcarnet" name="Lcarnet" value="<c:out value="${usuarioLogin.carnet}"/>">
         <div class="container">
-            <h4>Listado de Usuarios: </h4>
-            <table class="table table-dark text-center">
+            <h4 class="mt-4">Listado de Usuarios: </h4>
+            <table id="resultado" class="table table-dark text-center">
                 <thead>
                     <tr>
                         <th scope="col">Carnet</th>
@@ -42,4 +42,9 @@
             </table>
         </div>
     </body>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#resultado').DataTable();
+        });
+    </script>
 </html>
