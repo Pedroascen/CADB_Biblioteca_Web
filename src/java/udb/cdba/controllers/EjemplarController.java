@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import udb.cdba.beans.DataLoginBean;
 import udb.cdba.beans.EjemplarBean;
 import udb.cdba.model.EjemplarSQL;
 
@@ -22,11 +23,18 @@ public class EjemplarController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (request.getParameter("accion") == null) {
-            listar(request, response);
-            //request.getRequestDispatcher("/ejemplares/list.jsp").forward(request, response);
-        }
-        listar(request, response);
+//        DataLoginBean usrdata = (DataLoginBean) request.getSession().getAttribute("usuarioLogin");
+//        if (usrdata == null) {
+//            request.getRequestDispatcher("/login.jsp").forward(request, response);
+//        }
+
+        String accion = request.getParameter("accion");
+            switch (accion) {
+                case "buscar":
+                    listar(request, response);
+                    break;
+            }
+        
     }
 
     @Override
@@ -64,26 +72,39 @@ public class EjemplarController extends HttpServlet {
     }
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {
-        String titulo = "";
-        String autor = "";
+        String titulo = request.getParameter("titulo");
+        String autor = request.getParameter("autor");
         String material = request.getParameter("material");
         String idioma = request.getParameter("idioma");
-        String orderBy = "";
+        String orderBy = request.getParameter("orderBy");
 
-        if (material == null && idioma == null) {
+        if (titulo == null ) {
+            titulo = "";
+        }
+        
+        if (autor == null ) {
+            autor = "";
+        }
+        
+        if (material == null ) {
             material = "Todos";
+        }
+        
+        if (idioma == null ) {
             idioma = "Todos";
-            //System.out.println(material + " " + idioma);
-            List<EjemplarBean> ejemplares = new EjemplarSQL().ConsultarEjemplares(titulo, autor, material, idioma, orderBy);
-           
-            try {
-                request.setAttribute("ejemplares", ejemplares);
-                request.getRequestDispatcher("/ejemplares/listar.jsp").forward(request, response);
-            } catch (Exception e) {
-                System.err.println("Error: " + e);
-            }
-        } else {
+        }
+        
+        if (orderBy == null ) {
+            orderBy = "Título";
+        }
 
+        List<EjemplarBean> ejemplares = new EjemplarSQL().ConsultarEjemplares(titulo, autor, material, idioma, orderBy);
+
+        try {
+            request.setAttribute("ejemplares", ejemplares);
+            request.getRequestDispatcher("/ejemplares/listar.jsp").forward(request, response);
+        } catch (Exception e) {
+            System.err.println("Error: " + e);
         }
     }
 }

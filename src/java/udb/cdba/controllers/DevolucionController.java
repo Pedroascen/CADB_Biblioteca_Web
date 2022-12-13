@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import udb.cdba.beans.DataLoginBean;
 import udb.cdba.beans.DevolucionBean;
 import udb.cdba.beans.DispDevolucionBean;
 import udb.cdba.model.DevolucionSQL;
@@ -24,11 +25,18 @@ import udb.cdba.model.DevolucionSQL;
 
 @WebServlet(name = "DevolucionController", urlPatterns = {"/devolucion"})
 public class DevolucionController extends HttpServlet {
+    
+     DataLoginBean usrdata = new DataLoginBean();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
+            
+            usrdata = (DataLoginBean)request.getSession().getAttribute("usuarioLogin");
+            if(usrdata == null){
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
+            }
+            
             String accion = request.getParameter("accion");
             switch (accion) {
                 case "0":

@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Se guardo!</h1>
+        <h1>El ejemplar fue agregado exitosamente.</h1>
     </body>
 </html>

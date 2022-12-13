@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import udb.cdba.beans.DataLoginBean;
 import udb.cdba.model.LibroModel;
 import udb.cdba.beans.LibroBean;
 
@@ -28,15 +29,17 @@ public class LibroController extends HttpServlet {
 
     //variable para almacenar datos de usuario logueado
     String Did_rol, Dcarnet;
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            //capturamos los datos
-            String Lrol_id = request.getParameter("ir");
-            if (Lrol_id == null) {
-                doGet(request, response);
+            
+            DataLoginBean usrdata = new DataLoginBean();
+            usrdata = (DataLoginBean)request.getSession().getAttribute("usuarioLogin");
+            if(usrdata == null){
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
             }
 
             if (request.getParameter("accion") == null) {

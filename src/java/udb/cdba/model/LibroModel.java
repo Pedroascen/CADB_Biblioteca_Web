@@ -29,7 +29,7 @@ public class LibroModel {
         try {
             conn = Conexion.getConnection();
             //llamada al procedimiento almacenado  call new_upd_libro('"+codMaterial+"','"+titulo+"','"+autor+"','"+npaginas+"','"+editorial+"','"+isbn+"','"+anio+"');
-            stmt = conn.prepareStatement("call new_upd_libro('" + codMaterial + "','" + titulo + "','" + ufisica + "','" + cejemp + "','" + autor + "','" + npaginas + "','" + editorial + "','" + pais + "','" + isbn + "','" + anio + "','" + edicion + "','" + idioma + "','" + materia + "','" + descripcion + "');");
+            stmt = conn.prepareStatement("call new_upd_libro('" + codMaterial + "','" + titulo + "','" + ufisica + "'," + cejemp + ",'" + autor + "'," + npaginas + ",'" + editorial + "','" + pais + "','" + isbn + "'," + anio + "," + edicion + ",'" + idioma + "','" + materia + "','" + descripcion + "');");
             System.out.println(codMaterial + ", " + titulo + ", " + ufisica + ", " + cejemp + ", " + autor + ", " + npaginas + ", " + editorial + ", " + pais + ", " + isbn + ", " + anio + ", " + edicion + ", " + idioma + ", " + materia + "," + descripcion);
             System.out.println("Ejecutando query.");
             rows = stmt.executeUpdate();//no registros afectados

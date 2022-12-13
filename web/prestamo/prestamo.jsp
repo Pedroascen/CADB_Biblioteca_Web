@@ -16,10 +16,10 @@
     </head>
 
     <body>
-        <jsp:include page="/menu.jsp" />
+        <jsp:include page="/components/menu.jsp"/>
         <div class="container">
             <br>
-            <h4>Realizar Prestamo</h4>
+            <h4>Realizar Préstamo</h4>
             <hr class="border border-4">
             <div class="row mt-4 mb-2">
                 <div class="col-md-3">
@@ -45,7 +45,7 @@
                         </div>
                         <div class="col">
                             <br>
-                            <input type="submit" class="btn btn-info mt-1" value="Realizar Prestamo">
+                            <input type="submit" class="btn btn-info mt-1" value="Realizar Préstamo">
                         </div>
                     </div>
                 </form>
@@ -92,7 +92,11 @@
             }
 
 
-            $('#resultado').DataTable();
+            $('#resultado').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+                    }
+                });
         });
 
         function RadioButtonMaterialEstado(estado) {

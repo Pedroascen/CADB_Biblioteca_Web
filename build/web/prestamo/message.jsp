@@ -107,7 +107,7 @@
         }
 
     </style>
-        <jsp:include page="/menu.jsp"/>
+        <jsp:include page="/components/menu.jsp"/>
         <div class="container">
             <div class="container">
                 <div class="row">

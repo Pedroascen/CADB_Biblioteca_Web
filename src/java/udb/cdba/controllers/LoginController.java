@@ -102,12 +102,13 @@ public class LoginController extends HttpServlet {
             if (usrsql.login(usrdata)) {
                 //getServletInfo(request, response);
                 if (usrdata.getId_rol() == 1) {
+                    
                     request.getSession().setAttribute("usuarioLogin", usrdata);
                     request.getRequestDispatcher("/components/menu.jsp").forward(request, response);
                     inicio(request, response);
                 } else if (usrdata.getId_rol() == 2 || usrdata.getId_rol() == 3) {
                     request.getSession().setAttribute("usuarioLogin", usrdata);
-                    request.getRequestDispatcher("/components/menu_user.jsp").forward(request, response);
+                    //request.getRequestDispatcher("/components/menu_user.jsp").forward(request, response);
                     inicio_user(request, response);
                 }
             } else {

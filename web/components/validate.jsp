@@ -9,7 +9,7 @@
     </head>
     <body>
         <jsp:include page="/components/menu.jsp"/>
-        <h1>Error de autenticacion: No esta autorizado para acceder a este recurso.</h1>
+        <h1>Error de autenticación: No está autorizado para acceder a este recurso.</h1>
         <a type="button" href="/CADB_Biblioteca_Web/Example?accion=info">Regresar</a>
     </body>
 </html>

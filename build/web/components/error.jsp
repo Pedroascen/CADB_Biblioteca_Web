@@ -7,6 +7,6 @@
     </head>
     <body>
         <jsp:include page="/menu.jsp"/>
-        <h1>Algo salío mal! :(</h1>
+        <h1>¡Algo salió mal! :(</h1>
     </body>
 </html>

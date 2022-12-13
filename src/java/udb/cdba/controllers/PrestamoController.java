@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import udb.cdba.beans.DataLoginBean;
 import udb.cdba.beans.DispMaterialBean;
 import udb.cdba.beans.PrestamoBean;
 import udb.cdba.model.PrestamoSQL;
@@ -25,11 +26,19 @@ import udb.cdba.model.PrestamoSQL;
 @WebServlet(name = "PrestamoController", urlPatterns = {"/prestamo"})
 public class PrestamoController extends HttpServlet {
     
+//instanciamos la clase DataLogin
+    //DataLoginBean usrdata = new DataLoginBean();
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
+            
+            DataLoginBean usrdata = (DataLoginBean)request.getSession().getAttribute("usuarioLogin");
+            if(usrdata == null){
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
+            }
+            
             String accion = request.getParameter("accion");
             switch (accion) {
                 case "0":
