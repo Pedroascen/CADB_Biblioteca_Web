@@ -9,9 +9,9 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <%--<a class="nav-link" href="/CADB_Biblioteca_Web/index?&ir=${usuarioLogin.id_rol}">Home <span class="sr-only">(current)</span></a>--%>
+                <a class="nav-link" href="/CADB_Biblioteca_Web/index?&ir=${usuarioLogin.id_rol}">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Agregar ejemplares
@@ -24,13 +24,13 @@
                     <a class="dropdown-item" href="cd?accion=nuevo&ir=${usuarioLogin.id_rol}">Nuevo CD</a>
 
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/CADB_Biblioteca_Web/ejemplares/consultar.jsp">Buscar Ejemplares</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/CADB_Biblioteca_Web/prestamo?accion=1">Préstamo</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/CADB_Biblioteca_Web/devolucion?accion=1">Devolución</a>
             </li>
             <li class="nav-item dropdown active">

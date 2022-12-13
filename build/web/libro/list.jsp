@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="/components/menu.jsp"/>
         <h1>El ejemplar fue agregado exitosamente.</h1>
     </body>
 </html>
